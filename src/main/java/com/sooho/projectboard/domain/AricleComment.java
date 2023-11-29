@@ -1,15 +1,66 @@
 package com.sooho.projectboard.domain;
 
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDateTime;
+import java.util.Objects;
+
+
+@Getter
+@ToString
+@Table(indexes = {
+        @Index(columnList = "content"),
+        @Index(columnList = "creatdAt"),
+        @Index(columnList = "cteatedBy")
+})
+
+@Entity
 public class AricleComment {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Article article; //게시글 (ID)
-    private String title; // 해시태그
 
-    private LocalDateTime createAt; // 생서일시
-    private String createdBy; // 생성자
-    private LocalDateTime modifiedAt; //수정일시
-    private String modifiedBy; // 수정자
+    @Setter @ManyToOne(optional = false) private Article article; //게시글 (ID)
+    @Setter @Column(nullable = false, length = 500) private String content; // 본문
+
+
+    @CreatedDate        @Column(nullable = false) private LocalDateTime creatdAt; // 생서일시
+
+    @CreatedBy          @Column(nullable = false,length = 100) private String cteatedBy; // 생성자
+
+    @LastModifiedDate   @Column(nullable = false) private LocalDateTime modifiedAt; //수정일시
+
+    @LastModifiedBy     @Column(nullable = false,length = 100) private String modifiedBy; // 수정자
+
+
+    protected AricleComment() {}
+
+    private AricleComment(Article article, String title) {
+        this.article = article;
+        this.content = content;
+    }
+
+    public static AricleComment of(Article article, String content) {
+       return new AricleComment(article, content);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AricleComment that)) return false;
+        return id  != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

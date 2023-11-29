@@ -4,19 +4,22 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @ToString
 @Table(indexes = {
         @Index(columnList = "title"),
-        @Index(columnList = "hastage"),
+        @Index(columnList = "hashtag"),
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy"),
 
@@ -34,11 +37,16 @@ public class Article {
 
     @Setter private String hashtag; // 해시태그
 
-    @CreatedDate @Column(nullable = false) private LocalDateTime createAt; //생서일시
+
+    @OrderBy("id")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private final Set<AricleComment> aricleComments = new LinkedHashSet<>();
+
+    @CreatedDate @Column(nullable = false) private LocalDateTime createdAt; //생성일시
     @CreatedBy @Column(nullable = false, length = 100) private String createdBy; // 생성자
     @LastModifiedDate  @Column(nullable = false) private LocalDateTime modifiedAt; // 수정일시
     @LastModifiedBy @Column(nullable = false, length = 100) private String modifiedBy; // 수정자
-
 
 
     protected Article() {}
