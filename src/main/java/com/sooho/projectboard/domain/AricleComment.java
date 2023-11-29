@@ -17,8 +17,8 @@ import java.util.Objects;
 @ToString
 @Table(indexes = {
         @Index(columnList = "content"),
-        @Index(columnList = "creatdAt"),
-        @Index(columnList = "cteatedBy")
+        @Index(columnList = "createdAt"),
+        @Index(columnList = "createdBy")
 })
 
 @Entity
@@ -32,9 +32,9 @@ public class AricleComment {
     @Setter @Column(nullable = false, length = 500) private String content; // 본문
 
 
-    @CreatedDate        @Column(nullable = false) private LocalDateTime creatdAt; // 생서일시
+    @CreatedDate        @Column(nullable = false) private LocalDateTime createdAt; // 생서일시
 
-    @CreatedBy          @Column(nullable = false,length = 100) private String cteatedBy; // 생성자
+    @CreatedBy          @Column(nullable = false,length = 100) private String createdBy; // 생성자
 
     @LastModifiedDate   @Column(nullable = false) private LocalDateTime modifiedAt; //수정일시
 
