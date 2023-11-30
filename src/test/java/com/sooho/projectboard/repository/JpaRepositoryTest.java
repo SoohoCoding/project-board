@@ -50,9 +50,9 @@ class JpaRepositoryTest {
         // Given
         long previousCount = articleRepository.count();
 
-
         // When
         Article savedArticle = articleRepository.save(Article.of("new article","new content", "#spring"));
+
         // Then
         assertThat(articleRepository.count()).isEqualTo(previousCount + 1);
 
@@ -65,7 +65,6 @@ class JpaRepositoryTest {
         Article article  =  articleRepository.findById(1L).orElseThrow();
         String updatedHashtag = "springboot";
         article.setHashtag(updatedHashtag);
-
 
         // When
         Article savedArticle = articleRepository.saveAndFlush(article);
