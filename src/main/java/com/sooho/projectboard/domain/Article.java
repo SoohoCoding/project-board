@@ -31,11 +31,10 @@ public class Article extends AuditingFields {
 
     @Setter private String hashtag; // 해시태그
 
-
+    @ToString.Exclude
     @OrderBy("id")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private final Set<ArticleComment> aricleComments = new LinkedHashSet<>();
+    private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
 
     protected Article() {}
