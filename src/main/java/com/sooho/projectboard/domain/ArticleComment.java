@@ -4,12 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 
@@ -22,7 +17,7 @@ import java.util.Objects;
 })
 
 @Entity
-public class AricleComment extends AuditingFields{
+public class ArticleComment extends AuditingFields{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,21 +28,21 @@ public class AricleComment extends AuditingFields{
 
 
 
-    protected AricleComment() {}
+    protected ArticleComment() {}
 
-    private AricleComment(Article article, String title) {
+    private ArticleComment(Article article, String title) {
         this.article = article;
         this.content = content;
     }
 
-    public static AricleComment of(Article article, String content) {
-       return new AricleComment(article, content);
+    public static ArticleComment of(Article article, String content) {
+       return new ArticleComment(article, content);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AricleComment that)) return false;
+        if (!(o instanceof ArticleComment that)) return false;
         return id  != null && id.equals(that.id);
     }
 

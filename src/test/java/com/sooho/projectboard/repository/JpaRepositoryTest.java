@@ -21,11 +21,11 @@ import static org.assertj.core.api.Assertions.*;
 class JpaRepositoryTest {
 
     private  final ArticleRepository articleRepository;
-    private final AricleCommentRepository  articleCommentRepository;
+    private final ArticleCommentRepository articleCommentRepository;
 
     public JpaRepositoryTest(
             @Autowired ArticleRepository articleRepository,
-            @Autowired AricleCommentRepository aricleCommentRepository
+            @Autowired ArticleCommentRepository aricleCommentRepository
     ) {
         this.articleRepository = articleRepository;
         this.articleCommentRepository = aricleCommentRepository;
